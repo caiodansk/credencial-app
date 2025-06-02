@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function LoginScreen({ navigation }) {
+export default function CadastroScreen({ navigation }) {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   return (
     <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../assets/sesc.png')}style={styles.logo}resizeMode="contain"/>
-      <Text style={styles.welcome}>Bem-vindo</Text>
-      <Text style={styles.subtitle}>Faça login para acessar suas credenciais</Text>
-      </View>
-
+      <Text style={styles.title}>Criar Conta</Text>
+      <Text style={styles.subtitle}>Crie sua conta para acessar os serviços SESC</Text>
+      <Text style={styles.label}>Nome completo</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Seu nome completo"
+        value={nome}
+        onChangeText={setNome}
+      />
       <Text style={styles.label}>E-mail</Text>
       <TextInput
         style={styles.input}
-        placeholder="Seu e-mail"
+        placeholder="Seu melhor email"
+        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
       />
       <Text style={styles.label}>Senha</Text>
       <View style={styles.passwordContainer}>
@@ -41,18 +45,30 @@ export default function LoginScreen({ navigation }) {
           />
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.forgotButton}>
-        <Text style={styles.forgotText}>Esqueceu a senha?</Text>
+      <Text style={styles.label}>Confirmar senha</Text>
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.inputSenha}
+          placeholder="Confirme sua senha"
+          secureTextEntry={!mostrarSenha}
+          value={confirmarSenha}
+          onChangeText={setConfirmarSenha}
+        />
+        <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
+          <Icon
+            name={mostrarSenha ? 'eye-off' : 'eye'}
+            size={22}
+            color="#777"
+          />
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.registerButton}>
+        <Text style={styles.registerButtonText}>Criar conta</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Entrar</Text>
-      </TouchableOpacity>
-      <View style={styles.signupContainer}>
-        <Text>Não tem uma conta?</Text>
-        <TouchableOpacity
-           onPress={() => navigation.navigate('Register')} >
-          <Text style={styles.signupText}> Cadastre-se</Text>
+      <View style={styles.loginContainer}>
+        <Text style={styles.jtc}>Já tem uma conta?</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.loginText}> Faça login</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,52 +78,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F7FA',
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 30,
-    marginBottom: 50,
+    paddingTop: 100,
   },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  logo: {
-    width: 250,
-    height: 250,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoText: {
-    color: '#fff',
-    fontSize: 36,
-    fontWeight: 'bold',
-  },
-  welcome: {
-    fontSize: 23,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#000',
+    marginBottom: 40,
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 17,
     color: '#777',
-    marginBottom: 25,
     textAlign: 'center',
+    marginBottom: 25,
   },
   label: {
     alignSelf: 'flex-start',
-    fontSize: 14,
+    fontSize: 18,
     marginBottom: 5,
-    color: '#333',
+    color: '#999',
   },
   input: {
     width: '100%',
+    height: 55,
     backgroundColor: '#fff',
-    padding: 12,
+    padding: 15,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#ccc',
     marginBottom: 15,
-    height: 55,
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.2,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     paddingHorizontal: 12,
-    marginBottom: 5,
+    marginBottom: 15,
     height: 55,
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 2 },
@@ -135,32 +136,29 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
   },
-  forgotButton: {
-    alignSelf: 'flex-end',
-    marginBottom: 20,
-  },
-  forgotText: {
-    color: '#2F6DB5',
-    fontSize: 13,
-  },
-  loginButton: {
+  registerButton: {
     backgroundColor: '#2F6DB5',
     paddingVertical: 14,
     borderRadius: 8,
     width: '100%',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 20,
   },
-  loginButtonText: {
+  registerButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
   },
-  signupContainer: {
+  loginContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
-  signupText: {
+  loginText: {
     color: '#2F6DB5',
     fontWeight: '600',
+    fontSize: 16,
   },
+  jtc:{
+    fontSize: 16,
+  }
 });
