@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
     paddingHorizontal: 16,
     paddingTop: 40,
+    
   },
   header: {
     flexDirection: 'row',
@@ -109,6 +110,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   newsBox: {
+    borderLeftWidth: 4,
+    borderLeftColor: '#007BFF', 
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 12,
@@ -123,8 +126,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    marginTop:10,
   },
   card: {
+    borderLeftWidth: 1,
+    borderLeftColor: '#77777',
     backgroundColor: '#fff',
     padding: '10%',
     borderRadius: 12,
@@ -132,6 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 12,
+     marginTop:12,
     elevation: 2,
   },
   cardContent: {
