@@ -4,26 +4,34 @@
     "slug": "credencial-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/sesc.png",
+    "icon": "./src/assets/sesc.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/sesc.png",
+      "image": "./src/assets/sesc.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/sesc.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/sesc.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000000"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.caiovilante.credencialapp"
     },
     "web": {
-      "favicon": "./assets/sesc.png"
-    }
+      "favicon": "./src/assets/sesc.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "18a8472d-19c9-494b-9177-1b25d2ad5555"
+      }
+    },
+    "owner": "caiovilante"
   }
 }
