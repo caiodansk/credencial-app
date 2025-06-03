@@ -45,7 +45,7 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity style={styles.forgotButton}>
         <Text style={styles.forgotText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('MenuBar')}>
         <Text style={styles.loginButtonText}>Entrar</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
