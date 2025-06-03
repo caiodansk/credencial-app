@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require('../assets/sesc.png')}style={styles.logo}resizeMode="contain"/>
+          source={require('../../assets/sesc.png')}style={styles.logo}resizeMode="contain"/>
       <Text style={styles.welcome}>Bem-vindo</Text>
       <Text style={styles.subtitle}>Faça login para acessar suas credenciais</Text>
       </View>
