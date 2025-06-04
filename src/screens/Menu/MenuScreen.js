@@ -34,7 +34,7 @@ export default function Menubar({ navigation }) {
         {/* Serviços */}
         <Text style={styles.sectionTitle}>Serviços</Text>
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Infoperson')}>
           <View style={styles.cardContent}>
             <Icon name="card-account-details-outline" size={30} color="#007bff" />
             <View>

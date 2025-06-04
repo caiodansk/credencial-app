@@ -2,8 +2,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/Login/LoginScreen";
-import RegisterScreen from "../screens/Register/RegisterScreen";
+import RegisterScreen from "../screens/register/RegisterScreen";
 import MenuScreen from "../screens/Menu/MenuScreen";
+import InfopersonScreen from "../screens/Credencial/InfopersonScreen";
+import InfoprofScreen from "../screens/Credencial/InfoprofScreen";
+import InfoendScreen from "../screens/Credencial/InfoendScreen"
 
 const Stack = createStackNavigator();
 
@@ -11,12 +14,14 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="MenuBar" component={MenuScreen} />
+        initialRouteName="Login"screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} screenOptions={{ headerShown: false }} />
+        <Stack.Screen name="Register" component={RegisterScreen} screenOptions={{ headerShown: false }} />
+        <Stack.Screen name="MenuBar" component={MenuScreen} screenOptions={{ headerShown: false }} />
+        <Stack.Screen name="Infoperson" component={InfopersonScreen} screenOptions={{ headerShown: false }} />
+        <Stack.Screen name="Infoprof" component={InfoprofScreen} screenOptions={{ headerShown: false }} />
+        <Stack.Screen name="Infoend" component={InfoendScreen} screenOptions={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
