@@ -21,11 +21,6 @@
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "18a8472d-19c9-494b-9177-1b25d2ad5555"
-      }
-    },
     "owner": "caiovilante"
   }
 }
