@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MaskInput, { Masks } from 'react-native-mask-input';
 
 export default function Infoperson({ navigation }) {
@@ -13,7 +14,13 @@ export default function Infoperson({ navigation }) {
   const [nacionalidade, setNacionalidade] = useState('');
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      extraHeight={150}
+      enableOnAndroid={true}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}
+    >
       <Text style={styles.title}>Informações Pessoais</Text>
       <Text style={styles.subtitle}>
         Preencha seus dados pessoais para criar uma nova credencial
@@ -93,57 +100,65 @@ export default function Infoperson({ navigation }) {
         <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('MenuBar')}>
           <Text style={styles.cancelButtonText}>Cancelar</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Infoprof')}>
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F8FBF9',
+    flexGrow: 1,
+    minHeight: '100%',
+    paddingTop: 60,
     paddingHorizontal: 20,
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 14,
-    color: '#333',
-    marginBottom: 6,
-    marginTop: 10,
-  },
-  input: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#aaa',
-    borderRadius: 10,
-    padding: 12,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 30,
+    backgroundColor: '#F9FCF9',
+    paddingBottom: 120,
+      alignItems: 'stretch',
+      },
+      title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      marginBottom: 6,
+      textAlign: 'center',
+      },
+      subtitle: {
+      fontSize: 15,
+      color: '#555',
+      marginBottom: 18,
+      textAlign: 'center',
+      },
+      label: {
+      fontSize: 15,
+      fontWeight: '500',
+      marginBottom: 2,
+      color: '#333',
+      },
+      input: {
+      borderWidth: 1,
+      borderColor: '#DDD',
+      borderRadius: 10,
+      padding: 12,
+      fontSize: 15,
+      backgroundColor: '#FFF',
+      marginBottom: 6,
+      },
+      buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 3,
+      marginBottom: 30, 
   },
   cancelButton: {
     borderColor: '#2F6DB5',
     borderWidth: 1,
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 32,
     borderRadius: 8,
     backgroundColor: '#fff',
+    marginRight: 8,
   },
   cancelButtonText: {
     color: '#2F6DB5',
@@ -153,8 +168,9 @@ const styles = StyleSheet.create({
   nextButton: {
     backgroundColor: '#2F6DB5',
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 32,
     borderRadius: 8,
+    marginLeft: 8,
   },
   nextButtonText: {
     color: '#fff',

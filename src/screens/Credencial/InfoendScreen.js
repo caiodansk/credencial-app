@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MaskInput from 'react-native-mask-input';
 
@@ -10,13 +10,11 @@ export default function Infoend({ navigation }) {
 
   return (
     <KeyboardAwareScrollView
-      style={{ flex: 1, backgroundColor: '#F9FCF9' }}
       contentContainerStyle={styles.container}
-      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}
+      extraHeight={150}
       enableOnAndroid={true}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
-      nestedScrollEnabled={true}
     >
       <Text style={styles.title}>Endereço Residencial</Text>
       <Text style={styles.subtitle}>Preencha os dados do seu endereço</Text>
@@ -47,8 +45,8 @@ export default function Infoend({ navigation }) {
       <Text style={styles.label}>Bairro</Text>
       <TextInput style={styles.input} placeholder="Seu bairro" />
 
-      <View style={styles.row}>
-        <View style={{ flex: 3, marginRight: 8 }}>
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flex: 3 }}>
           <Text style={styles.label}>Cidade</Text>
           <TextInput style={styles.input} placeholder="Sua cidade" />
         </View>
@@ -88,7 +86,7 @@ export default function Infoend({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => navigation.goBack('Infoprof')}
+          onPress={() => navigation.navigate('Infoprof')}
         >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
@@ -105,47 +103,51 @@ export default function Infoend({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    flexGrow: 1,
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    backgroundColor: '#F9FCF9',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 40,
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#555',
-    marginBottom: 12,
+    textAlign: 'center',
   },
   label: {
-    fontSize: 14,
-    marginBottom: 4,
-    marginTop: 8,
+    fontSize: 15,
+    fontWeight: '500',
+    marginBottom: 2,
+    color: '#333',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#AAA',
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 14,
+    borderColor: '#DDD',
+    borderRadius: 10,
+    padding: 12,
+    fontSize: 15,
     backgroundColor: '#FFF',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 6,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 3,
+    marginBottom: 70,
   },
   cancelButton: {
     borderColor: '#2F6DB5',
     borderWidth: 1,
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 32,
     borderRadius: 8,
     backgroundColor: '#fff',
+    marginRight: 8,
   },
   cancelButtonText: {
     color: '#2F6DB5',
@@ -155,8 +157,9 @@ const styles = StyleSheet.create({
   nextButton: {
     backgroundColor: '#2F6DB5',
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 32,
     borderRadius: 8,
+    marginLeft: 8,
   },
   nextButtonText: {
     color: '#fff',
