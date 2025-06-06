@@ -45,7 +45,7 @@ export default function Menubar({ navigation }) {
           <Icon name="chevron-right" size={24} color="#999" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Consultar')}>
           <View style={styles.cardContent}>
             <Icon name="magnify" size={30} color="#f4a300" />
             <View>
