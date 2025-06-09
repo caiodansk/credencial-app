@@ -97,7 +97,7 @@ export default function Infoperson({ navigation }) {
       />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('MenuBar')}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('MainTabs')}>
           <Text style={styles.cancelButtonText}>Cancelar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Infoprof')}>

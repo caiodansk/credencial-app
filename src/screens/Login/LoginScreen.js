@@ -2,18 +2,29 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation, setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  const handleLogin = () => {
+    if (email && senha) {
+      setIsLoggedIn(true);
+    } else {
+      alert('Preencha todos os campos!');
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          source={require('../../assets/sesc.png')}style={styles.logo}resizeMode="contain"/>
-      <Text style={styles.welcome}>Bem-vindo</Text>
-      <Text style={styles.subtitle}>Faça login para acessar suas credenciais</Text>
+          source={require('../../assets/sesc.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Text style={styles.welcome}>Bem-vindo</Text>
+        <Text style={styles.subtitle}>Faça login para acessar suas credenciais</Text>
       </View>
 
       <Text style={styles.label}>E-mail</Text>
@@ -24,6 +35,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setEmail}
         keyboardType="email-address"
       />
+
       <Text style={styles.label}>Senha</Text>
       <View style={styles.passwordContainer}>
         <TextInput
@@ -34,24 +46,21 @@ export default function LoginScreen({ navigation }) {
           onChangeText={setSenha}
         />
         <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-          <Icon
-            name={mostrarSenha ? 'eye-off' : 'eye'}
-            size={22}
-            color="#777"
-          />
+          <Icon name={mostrarSenha ? 'eye-off' : 'eye'} size={22} color="#777" />
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.forgotButton}>
         <Text style={styles.forgotText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('MenuBar')}>
+
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Entrar</Text>
       </TouchableOpacity>
+
       <View style={styles.signupContainer}>
         <Text>Não tem uma conta?</Text>
-        <TouchableOpacity
-           onPress={() => navigation.navigate('Register')} >
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.signupText}> Cadastre-se</Text>
         </TouchableOpacity>
       </View>

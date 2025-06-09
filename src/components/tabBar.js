@@ -5,6 +5,7 @@ import MenuScreen from '../screens/Menu/MenuScreen';
 import ConsultarCredencial from '../screens/cosulta_credencial/cosultaScreen';
 import InfopersonScreen from '../screens/Credencial/InfopersonScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import LoginScreen from '../screens/Login/LoginScreen';
 
 const Tab = createBottomTabNavigator();
 

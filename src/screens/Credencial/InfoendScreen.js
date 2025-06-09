@@ -94,7 +94,7 @@ export default function Infoend({ navigation }) {
           style={styles.nextButton}
           onPress={() => alert('Formulário Finalizado')}
         >
-          <Text style={styles.nextButtonText}>Próximo</Text>
+          <Text style={styles.nextButtonText} onPress={() => navigation.navigate('Rg')}>Próximo</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>
