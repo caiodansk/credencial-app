@@ -17,26 +17,20 @@ export default function RgScreen() {
     <View style={styles.container}>
 
       <Image
-        source={require('../../assets/sesc.png')} // coloque a imagem na pasta assets
+        source={require('../../assets/sesc.png')}
         style={styles.image}
       />
 
-      {/* Título */}
+   
       <Text style={styles.title}>Envie seu RG</Text>
-
-      {/* Subtítulo */}
       <Text style={styles.subtitle}>
         Tire uma foto da frente e outra do verso de um dos documentos.
       </Text>
-
-      {/* Botão Tirar foto */}
       <TouchableOpacity style={styles.photoButton} onPress={handleTakePhoto}>
-        <Text style={styles.photoButtonText}>Tirar foto</Text>
+        <Text style={styles.photoButtonText}>TIRAR FOTO</Text>
       </TouchableOpacity>
-
-      {/* Fazer depois */}
-      <TouchableOpacity onPress={handleSkip}>
-        <Text style={styles.skipText}>FAZER DEPOIS</Text>
+      <TouchableOpacity  onPress={() => navigation.navigate('Infoend')}>
+        <Text style={styles.skipText}>VOLTAR</Text>
       </TouchableOpacity>
     </View>
   );

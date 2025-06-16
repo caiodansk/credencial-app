@@ -1,62 +1,117 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet,
+  Keyboard,
+  Platform
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MaskInput from 'react-native-mask-input';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function InfoProf({ navigation }) {
   const [cnpj, setCnpj] = useState('');
   const [telefone, setTelefone] = useState('');
   const [ctps, setCtps] = useState('');
   const [pis, setPis] = useState('');
+  const [razaoSocial, setRazaoSocial] = useState('');
+  const [cargo, setCargo] = useState('');
+  const [dataAdmissao, setDataAdmissao] = useState('');
+  const [dataDesligamento, setDataDesligamento] = useState('');
+  const [renda, setRenda] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleNext = () => {
+    Keyboard.dismiss();
+    navigation.navigate('Infoend');
+  };
+
+  const handleBack = () => {
+    Keyboard.dismiss();
+    navigation.navigate('Infoperson');
+  };
 
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.container}
-      extraHeight={150}
+      extraHeight={Platform.select({ ios: 100, android: 150 })}
       enableOnAndroid={true}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
+      enableResetScrollToCoords={false}
+      extraScrollHeight={50}
     >
       <Text style={styles.title}>Informações Profissionais</Text>
       <Text style={styles.subtitle}>Preencha seus dados profissionais</Text>
 
+      {/* Seta indicativa no TOPO da tela */}
+      <View style={styles.topScrollIndicator}>
+        <Text style={styles.scrollIndicatorText}>Deslize para ver mais campos</Text>
+        <Ionicons name="chevron-down-circle" size={28} color="#333" />
+      </View>
+
       <Text style={styles.label}>Razão Social</Text>
-      <TextInput style={styles.input} placeholder="Nome da empresa" />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Nome da empresa" 
+        value={razaoSocial}
+        onChangeText={setRazaoSocial}
+        returnKeyType="next"
+      />
 
       <Text style={styles.label}>CNPJ</Text>
       <MaskInput
         style={styles.input}
         value={cnpj}
         onChangeText={(masked, unmasked) => setCnpj(unmasked)}
-        mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+        mask={[/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
         keyboardType="numeric"
-        placeholder="CNPJ (somente números)"
+        placeholder="00.000.000/0000-00"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>Cargo</Text>
-      <TextInput style={styles.input} placeholder="Seu cargo na empresa" />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Seu cargo na empresa" 
+        value={cargo}
+        onChangeText={setCargo}
+        returnKeyType="next"
+      />
 
       <Text style={styles.label}>Data de Admissão</Text>
       <MaskInput
         style={styles.input}
+        value={dataAdmissao}
+        onChangeText={setDataAdmissao}
         mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         placeholder="DD/MM/AAAA"
         keyboardType="numeric"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>Data de Desligamento (se aplicável)</Text>
       <MaskInput
         style={styles.input}
+        value={dataDesligamento}
+        onChangeText={setDataDesligamento}
         mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
         placeholder="DD/MM/AAAA"
         keyboardType="numeric"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>Renda Mensal</Text>
       <TextInput
         style={styles.input}
         placeholder="R$ 0,00"
+        value={renda}
+        onChangeText={setRenda}
         keyboardType="numeric"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>Carteira de Trabalho (CTPS)</Text>
@@ -67,6 +122,7 @@ export default function InfoProf({ navigation }) {
         mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
         placeholder="Número da CTPS"
         keyboardType="numeric"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>PIS/PASEP</Text>
@@ -74,9 +130,10 @@ export default function InfoProf({ navigation }) {
         style={styles.input}
         value={pis}
         onChangeText={(masked, unmasked) => setPis(unmasked)}
-        mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-        placeholder="Número do PIS/PASEP"
+        mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/, '.', /\d/, /\d/, '-', /\d/]}
+        placeholder="000.00000.00-0"
         keyboardType="numeric"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>Telefone Comercial</Text>
@@ -84,23 +141,35 @@ export default function InfoProf({ navigation }) {
         style={styles.input}
         value={telefone}
         onChangeText={(masked, unmasked) => setTelefone(unmasked)}
-        mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholder="(00) 0000-0000"
+        mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        placeholder="(00) 00000-0000"
         keyboardType="phone-pad"
+        returnKeyType="next"
       />
 
       <Text style={styles.label}>E-mail Comercial</Text>
       <TextInput
         style={styles.input}
         placeholder="email@empresa.com"
+        value={email}
+        onChangeText={setEmail}
         keyboardType="email-address"
+        autoCapitalize="none"
+        returnKeyType="done"
+        onSubmitEditing={Keyboard.dismiss}
       />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('Infoperson')}>
+        <TouchableOpacity 
+          style={styles.cancelButton} 
+          onPress={() => navigation.navigate('Infoperson')}
+        >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Infoend')}>
+        <TouchableOpacity 
+          style={styles.nextButton} 
+          onPress={() => navigation.navigate('Infoend')}
+        >
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
@@ -110,15 +179,17 @@ export default function InfoProf({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     paddingTop: 50,
     paddingHorizontal: 20,
+    paddingBottom: 100, 
     backgroundColor: '#F9FCF9',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginBottom: 5,
   },
   subtitle: {
     fontSize: 15,
@@ -126,31 +197,43 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
   },
+  topScrollIndicator: {
+    alignItems: 'center',
+    marginBottom: 15,
+    padding: 8,
+  },
+  scrollIndicatorText: {
+    color: '#555',
+    fontSize: 13,
+    marginTop: 5,
+    fontWeight: '500',
+  },
   label: {
     fontSize: 15,
     fontWeight: '500',
-    marginBottom: 2,
+    marginBottom: 8,
     color: '#333',
   },
   input: {
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 10,
-    padding: 12,
+    padding: Platform.select({ ios: 14, android: 12 }),
     fontSize: 15,
     backgroundColor: '#FFF',
-    marginBottom: 6,
+    marginBottom: 15,
+    minHeight: 50,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 3,
-    marginBottom: 70,
+    marginTop: 20,
+    marginBottom: 30,
   },
   cancelButton: {
     borderColor: '#2F6DB5',
     borderWidth: 1,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 8,
     backgroundColor: '#fff',
@@ -163,7 +246,7 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: '#2F6DB5',
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 8,
     marginLeft: 8,

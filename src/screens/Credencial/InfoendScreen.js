@@ -91,10 +91,8 @@ export default function Infoend({ navigation }) {
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.nextButton}
-          onPress={() => alert('Formulário Finalizado')}
-        >
-          <Text style={styles.nextButtonText} onPress={() => navigation.navigate('Rg')}>Próximo</Text>
+          style={styles.nextButton} onPress={() => navigation.navigate('Rg')}>
+          <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>

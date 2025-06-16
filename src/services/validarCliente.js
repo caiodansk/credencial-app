@@ -1,5 +1,5 @@
 // api/validarCliente.js
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./api";
 
 export const validarCliente = async (cpf, dataNascimento) => {
   try {

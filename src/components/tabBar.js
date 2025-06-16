@@ -3,7 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MenuScreen from '../screens/Menu/MenuScreen';
 import ConsultarCredencial from '../screens/cosulta_credencial/cosultaScreen';
-import InfopersonScreen from '../screens/Credencial/InfopersonScreen';
+import ProfileScreen from '../screens/Perfil/ProfileScreen';  
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoginScreen from '../screens/Login/LoginScreen';
 
@@ -29,7 +29,7 @@ export default function MainTabs() {
     >
       <Tab.Screen name="Início" component={MenuScreen} />
       <Tab.Screen name="Consultar" component={ConsultarCredencial} />
-      <Tab.Screen name="Perfil" component={InfopersonScreen} />
+      <Tab.Screen name="Perfil" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }

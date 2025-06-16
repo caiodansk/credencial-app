@@ -11,8 +11,12 @@ import InfoendScreen from '../screens/Credencial/InfoendScreen';
 import cosultaScreen from '../screens/cosulta_credencial/cosultaScreen';
 import MainTabs from '../components/tabBar';
 import RgScreen from '../screens/Rg/RgScreen';
+import ProfileScreen from '../screens/Perfil/ProfileScreen';
+import ClienteScreen from '../screens/Clientes/ClienteScreen';
 
 const Stack = createStackNavigator();
+
+
 
 export default function Routes() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,13 +29,18 @@ export default function Routes() {
             <Stack.Screen name="MainTabs">
               {(props) => <MainTabs {...props} setIsLoggedIn={setIsLoggedIn} />}
             </Stack.Screen>
-            <Stack.Screen name="MenuBar" component={MenuScreen} />
+            <Stack.Screen name="Menu" component={MenuScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Infoperson" component={InfopersonScreen} />
             <Stack.Screen name="Infoprof" component={InfoprofScreen} />
             <Stack.Screen name="Infoend" component={InfoendScreen} />
-            <Stack.Screen name="Rg" component={RgScreen}/>
+            <Stack.Screen name="Rg" component={RgScreen} />
             <Stack.Screen name="Consultar" component={cosultaScreen} />
-            </>) : (<><Stack.Screen name="Login">
+            <Stack.Screen name="Cliente" component={ClienteScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login">
               {(props) => <LoginScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
             </Stack.Screen>
             <Stack.Screen name="Register" component={RegisterScreen} />
