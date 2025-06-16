@@ -68,7 +68,7 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
         } else if (error.response.status === 401) {
           errorMessage = 'Credenciais inválidas';
         } else if (error.response.data?.detail) {
-          errorMessage = error.response.data.detail;
+          errorMessage = 'Senha muito fraca.';
         }
       } else if (error.request) {
         errorMessage = 'Sem resposta do servidor - verifique sua conexão';
