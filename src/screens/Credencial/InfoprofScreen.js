@@ -61,8 +61,7 @@ export default function InfoProf({ navigation }) {
     console.log(dadosPessoaJuridica)
     const dataFormatada = dataAdmissao.split('/').reverse().join('-');
     const rendaFinal = renda.replace(',', '.')
-    postInfoPessoais(dadosPessoaFisica, dadosPessoaJuridica, cargo, dataFormatada, rendaFinal, ctps, pis, telefone)
-    // navigation.navigate('Rg');
+    postInfoPessoais(dadosPessoaFisica, dadosPessoaJuridica, cargo, dataFormatada, rendaFinal, ctps, pis, telefone, navigation)
   };
 
   const handleBack = () => {

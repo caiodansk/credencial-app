@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "./api";
 
-export async function postInfoPessoais(objPessoaFisica, objPessoaJuridica, cargo, dataAdmissao, renda, ctps, pis, fone) {
+export async function postInfoPessoais(objPessoaFisica, objPessoaJuridica, cargo, dataAdmissao, renda, ctps, pis, fone, navigation) {
   const token = await AsyncStorage.getItem('userToken');
   if (!token) {
     alert('Você precisa fazer login para continuar.');
@@ -40,7 +40,8 @@ export async function postInfoPessoais(objPessoaFisica, objPessoaJuridica, cargo
     });
     console.log('Vínculo criado:', vinculoResponse.data);
 
-    alert('Sucesso ao efetuar vínculo! Clique em "Próximo" para avançar.');
+    alert('Sucesso ao efetuar vínculo! Você precisa enviar seus documentos agora...');
+    navigation.navigate('Rg')
   } catch (error) {
     console.error('Erro ao enviar dados:', error?.response || error);
     alert('Erro ao cadastrar as informações. Verifique os dados e tente novamente.');
