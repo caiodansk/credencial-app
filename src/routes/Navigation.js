@@ -36,10 +36,10 @@ export default function Routes() {
             <Stack.Screen name="Infoend" component={InfoendScreen} />
             <Stack.Screen name="Consultar" component={cosultaScreen} />
             <Stack.Screen name="Cliente" component={ClienteScreen} />
+            <Stack.Screen name="Rg" component={RgScreen} />
           </>
         ) : (
           <>
-          <Stack.Screen name="Rg" component={RgScreen} />
             <Stack.Screen name="Login">
               {(props) => <LoginScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
             </Stack.Screen>

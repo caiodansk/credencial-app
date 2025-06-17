@@ -13,6 +13,7 @@ import { useRoute } from '@react-navigation/native';
 import MaskInput from 'react-native-mask-input';
 import { Ionicons } from '@expo/vector-icons';
 import { postInfoPessoais } from '../../services/infoPessoais';
+import { useNavigation } from '@react-navigation/native';
 
 export default function InfoProf({ navigation }) {
   const route = useRoute()

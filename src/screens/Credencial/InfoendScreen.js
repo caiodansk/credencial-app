@@ -6,7 +6,7 @@ import MaskInput from 'react-native-mask-input';
 
 export default function Infoend({ navigation }) {
   const route = useRoute()
-  const {dadosEtapa1} = route.params
+  const dadosEtapa1 = route?.params?.dadosEtapa1 ?? null
 
   const [cep, setCep] = useState('');
   const [logradouro, setLogradouro] = useState('')

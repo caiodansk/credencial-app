@@ -1,13 +1,72 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { enviarDocumento } from '../../services/documentos';
+import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+
 
 export default function RgScreen() {
   const [frenteImage, setFrenteImage] = useState(null);
   const [versoImage, setVersoImage] = useState(null);
+  const navigation = useNavigation()
+  const route = useRoute()
+  const pedidoCredencialId = route?.params?.pedidoCredencialId ?? null;
 
-  const handleSelectFrente = () => {
-    Alert.alert('Selecionar Foto', 'Botão para selecionar foto da frente clicado!');
+  // Pedir permissão ao carregar o componente
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permissão necessária', 'Precisamos de permissão para acessar suas fotos!');
+        }
+      }
+    })();
+  }, []);
+
+  const pickImageFrente = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setFrenteImage(result.assets[0]);
+    }
   };
+
+  const pickImageVerso = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setVersoImage(result.assets[0]);
+    }
+  };
+
+  async function enviarAmbasImagens(pedidoCredencialId, imagemFrente, imagemVerso, navigation) {
+    if (!imagemFrente || !imagemVerso) {
+      Alert.alert('Erro', 'Selecione ambas as imagens antes de enviar.');
+      return;
+    }
+
+    try {
+      await enviarDocumento(pedidoCredencialId, 'RG Frente', 'Documento RG Frente', imagemFrente, navigation);
+      await enviarDocumento(pedidoCredencialId, 'RG Verso', 'Documento RG Verso', imagemVerso, navigation);
+
+      // Se tudo deu certo, redireciona
+      alert('Seu documento foi enviado com sucesso! Dentro de alguns dias atualizaremos o status do seu pedido.')
+      navigation.navigate('MainTabs');
+    } catch (error) {
+      console.error('Erro ao enviar documentos:', error);
+      Alert.alert('Erro', 'Ocorreu um erro ao enviar os documentos. Tente novamente.');
+    }
+  }
 
   const handleSelectVerso = () => {
     Alert.alert('Selecionar Foto', 'Botão para selecionar foto do verso clicado!');
@@ -33,32 +92,32 @@ export default function RgScreen() {
       <View style={styles.photoContainer}>
         <View style={styles.photoBox}>
           {frenteImage ? (
-            <Image source={{ uri: frenteImage }} style={styles.photo} />
+            <Image source={{ uri: frenteImage.uri }} style={styles.photo} />
           ) : (
             <View style={styles.placeholder}>
               <Text style={styles.placeholderText}>Frente</Text>
             </View>
           )}
-          <TouchableOpacity style={styles.photoButton} onPress={handleSelectFrente}>
+          <TouchableOpacity style={styles.photoButton} onPress={pickImageFrente}>
             <Text style={styles.photoButtonText}>Selecionar Foto</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.photoBox}>
           {versoImage ? (
-            <Image source={{ uri: versoImage }} style={styles.photo} />
+            <Image source={{ uri: versoImage.uri }} style={styles.photo} />
           ) : (
             <View style={styles.placeholder}>
               <Text style={styles.placeholderText}>Verso</Text>
             </View>
           )}
-          <TouchableOpacity style={styles.photoButton} onPress={handleSelectVerso}>
+          <TouchableOpacity style={styles.photoButton} onPress={pickImageVerso}>
             <Text style={styles.photoButtonText}>Selecionar Foto</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <TouchableOpacity style={styles.finalizeButton} onPress={handleFinalize}>
+      <TouchableOpacity style={styles.finalizeButton} onPress={() => enviarAmbasImagens(pedidoCredencialId, frenteImage, versoImage, navigation)}>
         <Text style={styles.finalizeButtonText}>FINALIZAR</Text>
       </TouchableOpacity>
 

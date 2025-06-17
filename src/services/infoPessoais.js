@@ -38,10 +38,22 @@ export async function postInfoPessoais(objPessoaFisica, objPessoaJuridica, cargo
     const vinculoResponse = await api.post('/vinculos/', vinculo, {
       headers: { Authorization: `Token ${token}` }
     });
-    console.log('Vínculo criado:', vinculoResponse.data);
+    const vinculoId = vinculoResponse.data.id;
+    console.log("ID VINCULO: ", vinculoResponse.data.id)
 
-    alert('Sucesso ao efetuar vínculo! Você precisa enviar seus documentos agora...');
-    navigation.navigate('Rg')
+    // Pedido
+    const pedido = {
+      vinculo: vinculoId,
+    };
+
+    const pedidoResponse = await api.post('/pedidos-credencial/', pedido, {
+      headers: { Authorization: `Token ${token}` }
+    });
+    const pedidoId = pedidoResponse.data.id;
+
+    alert('Sucesso! Agora envie seus documentos.');
+    
+    
   } catch (error) {
     console.error('Erro ao enviar dados:', error?.response || error);
     alert('Erro ao cadastrar as informações. Verifique os dados e tente novamente.');
