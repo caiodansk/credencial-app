@@ -29,7 +29,7 @@ export default function RgScreen() {
       <TouchableOpacity style={styles.photoButton} onPress={handleTakePhoto}>
         <Text style={styles.photoButtonText}>TIRAR FOTO</Text>
       </TouchableOpacity>
-      <TouchableOpacity  onPress={() => navigation.navigate('Infoend')}>
+      <TouchableOpacity  onPress={() => navigation.navigate('Infoprof')}>
         <Text style={styles.skipText}>VOLTAR</Text>
       </TouchableOpacity>
     </View>

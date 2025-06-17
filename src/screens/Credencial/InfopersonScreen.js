@@ -15,7 +15,7 @@ export default function Infoperson({ navigation }) {
 
   const handleNext = () => {
     Keyboard.dismiss(); // Fecha o teclado ao navegar
-    navigation.navigate('Infoprof');
+    navigation.navigate('Infoend');
   };
 
   const handleCancel = () => {
@@ -127,7 +127,7 @@ export default function Infoperson({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.nextButton} 
-            onPress={() => navigation.navigate('Infoprof')}
+            onPress={() => navigation.navigate('Infoend')}
           >
             <Text style={styles.nextButtonText}>Próximo</Text>
           </TouchableOpacity>

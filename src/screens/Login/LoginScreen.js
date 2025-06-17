@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation, setIsLoggedIn }) {
   const [email, setEmail] = useState('');
@@ -55,6 +56,7 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
       });
 
       const token = response.data.token;
+      await AsyncStorage.setItem('userToken', token)
       setIsLoggedIn(true);
       
     } catch (error) {

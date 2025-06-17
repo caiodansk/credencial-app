@@ -26,7 +26,7 @@ export default function InfoProf({ navigation }) {
 
   const handleNext = () => {
     Keyboard.dismiss();
-    navigation.navigate('Infoend');
+    navigation.navigate('Rg');
   };
 
   const handleBack = () => {
@@ -162,13 +162,13 @@ export default function InfoProf({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
           style={styles.cancelButton} 
-          onPress={() => navigation.navigate('Infoperson')}
+          onPress={() => navigation.navigate('Infoend')}
         >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.nextButton} 
-          onPress={() => navigation.navigate('Infoend')}
+          onPress={() => navigation.navigate('Rg')}
         >
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>

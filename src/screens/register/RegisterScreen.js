@@ -155,7 +155,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.label}>Nome completo</Text>
         <TextInput
           style={[styles.input, errors.full_name && styles.inputError]}
-          placeholder="Digite seu nome completo (ex: João Silva)"
+          placeholder="Digite seu nome completo"
           value={form.full_name}
           onChangeText={text => handleChange('full_name', text)}
           autoCapitalize="words"

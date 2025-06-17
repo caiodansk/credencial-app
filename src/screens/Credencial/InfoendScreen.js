@@ -86,12 +86,12 @@ export default function Infoend({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => navigation.navigate('Infoprof')}
+          onPress={() => navigation.navigate('Infoperson')}
         >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.nextButton} onPress={() => navigation.navigate('Rg')}>
+          style={styles.nextButton} onPress={() => navigation.navigate('Infoprof')}>
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
