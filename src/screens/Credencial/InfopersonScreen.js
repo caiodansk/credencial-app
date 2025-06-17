@@ -15,7 +15,19 @@ export default function Infoperson({ navigation }) {
 
   const handleNext = () => {
     Keyboard.dismiss(); // Fecha o teclado ao navegar
-    navigation.navigate('Infoend');
+
+    const dadosEtapa1 = {
+      nome: nome,
+      data_nascimento: dataNascimento.split('/').reverse().join('-'),
+      sexo: 1,
+      estado_civil: 2,
+      cpf: cpf.replace(/\D/g, ""),
+      rg: rg,
+      org_emissor_rg: orgaoEmissor,
+      nacionalidade: nacionalidade,
+    }
+
+    navigation.navigate('Infoend', {dadosEtapa1});
   };
 
   const handleCancel = () => {
@@ -78,7 +90,7 @@ export default function Infoperson({ navigation }) {
           returnKeyType="next"
         />
 
-        <Text style={styles.label}>Documentos (RG)</Text>
+        <Text style={styles.label}>RG</Text>
         <MaskInput
           style={styles.input}
           placeholder="Somente números"
@@ -127,7 +139,7 @@ export default function Infoperson({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.nextButton} 
-            onPress={() => navigation.navigate('Infoend')}
+            onPress={handleNext}
           >
             <Text style={styles.nextButtonText}>Próximo</Text>
           </TouchableOpacity>

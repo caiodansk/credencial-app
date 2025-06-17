@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
   StyleSheet,
   Keyboard,
   Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useRoute } from '@react-navigation/native';
 import MaskInput from 'react-native-mask-input';
 import { Ionicons } from '@expo/vector-icons';
+import { postInfoPessoais } from '../../services/infoPessoais';
 
 export default function InfoProf({ navigation }) {
+  const route = useRoute()
+  const { dadosPessoaFisica } = route.params
+
+  useEffect(() => {
+    console.log(dadosPessoaFisica)
+  }, [])
+
+
   const [cnpj, setCnpj] = useState('');
+  const [nomeResponsavel, setNomeResponsavel] = useState('')
   const [telefone, setTelefone] = useState('');
   const [ctps, setCtps] = useState('');
   const [pis, setPis] = useState('');
@@ -23,15 +34,40 @@ export default function InfoProf({ navigation }) {
   const [dataDesligamento, setDataDesligamento] = useState('');
   const [renda, setRenda] = useState('');
   const [email, setEmail] = useState('');
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+  const [bairro, setBairro] = useState('')
 
   const handleNext = () => {
     Keyboard.dismiss();
-    navigation.navigate('Rg');
+
+    const dadosPessoaJuridica = {
+      nome_fantasia: razaoSocial,
+      razao_social: razaoSocial,
+      cnpj: cnpj,
+      logradouro: logradouro,
+      numero: numero,
+      complemento: complemento,
+      bairro: bairro,
+      cep: cep,
+      nome_responsavel: nomeResponsavel,
+      email: email,
+      municipio: 1,
+      estado: 1,
+    }
+
+    console.log(dadosPessoaJuridica)
+    const dataFormatada = dataAdmissao.split('/').reverse().join('-');
+    const rendaFinal = renda.replace(',', '.')
+    postInfoPessoais(dadosPessoaFisica, dadosPessoaJuridica, cargo, dataFormatada, rendaFinal, ctps, pis, telefone)
+    // navigation.navigate('Rg');
   };
 
   const handleBack = () => {
     Keyboard.dismiss();
-    navigation.navigate('Infoperson');
+    navigation.navigate('Infoend');
   };
 
   return (
@@ -54,11 +90,19 @@ export default function InfoProf({ navigation }) {
       </View>
 
       <Text style={styles.label}>Razão Social</Text>
-      <TextInput 
-        style={styles.input} 
-        placeholder="Nome da empresa" 
+      <TextInput
+        style={styles.input}
+        placeholder="Nome da empresa"
         value={razaoSocial}
         onChangeText={setRazaoSocial}
+        returnKeyType="next"
+      />
+
+      <Text style={styles.label}>Nome do resposável</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nome do responsável"
+        onChangeText={setNomeResponsavel}
         returnKeyType="next"
       />
 
@@ -73,10 +117,48 @@ export default function InfoProf({ navigation }) {
         returnKeyType="next"
       />
 
+      <Text style={styles.label}>CEP</Text>
+      <MaskInput
+        style={styles.input}
+        value={cep}
+        onChangeText={(masked, unmasked) => setCep(unmasked)}
+        mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}
+        placeholder="00000-000"
+        keyboardType="numeric"
+      />
+
+      <Text style={styles.label}>Logradouro</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Rua, Avenida, etc."
+        onChangeText={setLogradouro}
+      />
+
+      <Text style={styles.label}>Número</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="123"
+        keyboardType="numeric"
+        onChangeText={setNumero}
+      />
+
+      <Text style={styles.label}>Complemento</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Apto, Bloco, etc."
+        onChangeText={setComplemento}
+      />
+
+      <Text style={styles.label}>Bairro</Text>
+      <TextInput style={styles.input}
+        placeholder="Seu bairro"
+        onChangeText={setBairro}
+      />
+
       <Text style={styles.label}>Cargo</Text>
-      <TextInput 
-        style={styles.input} 
-        placeholder="Seu cargo na empresa" 
+      <TextInput
+        style={styles.input}
+        placeholder="Seu cargo na empresa"
         value={cargo}
         onChangeText={setCargo}
         returnKeyType="next"
@@ -160,15 +242,15 @@ export default function InfoProf({ navigation }) {
       />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          style={styles.cancelButton} 
-          onPress={() => navigation.navigate('Infoend')}
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={handleBack}
         >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.nextButton} 
-          onPress={() => navigation.navigate('Rg')}
+        <TouchableOpacity
+          style={styles.nextButton}
+          onPress={handleNext}
         >
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
@@ -182,7 +264,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingTop: 50,
     paddingHorizontal: 20,
-    paddingBottom: 100, 
+    paddingBottom: 100,
     backgroundColor: '#F9FCF9',
   },
   title: {

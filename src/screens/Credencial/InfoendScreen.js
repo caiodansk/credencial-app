@@ -1,12 +1,56 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MaskInput from 'react-native-mask-input';
 
 export default function Infoend({ navigation }) {
+  const route = useRoute()
+  const {dadosEtapa1} = route.params
+
   const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [uf, setUf] = useState('')
   const [telResidencial, setTelResidencial] = useState('');
   const [telCelular, setTelCelular] = useState('');
+  const [emailPessoal, setEmailPessoal] = useState('')
+
+  useEffect(() => {
+    console.log(dadosEtapa1)
+  }, [])
+
+  const handleNext = () => {
+      Keyboard.dismiss(); // Fecha o teclado ao navegar
+
+      const dadosEtapa2 = {
+        logradouro: logradouro,
+        numero: numero,
+        complemento: complemento,
+        bairro: bairro,
+        cep: cep,
+        fone_residencial: telResidencial,
+        fone_celular: telCelular,
+        email: emailPessoal,
+        municipio: 1,
+        estado: 1,
+      }
+
+      const dadosPessoaFisica = {
+        ...dadosEtapa1,
+        ...dadosEtapa2
+      }
+
+      navigation.navigate('Infoprof', {dadosPessoaFisica});
+    };
+  
+    const handleCancel = () => {
+      Keyboard.dismiss(); // Fecha o teclado ao navegar
+      navigation.navigate('Infoperson');
+    };
 
   return (
     <KeyboardAwareScrollView
@@ -30,29 +74,50 @@ export default function Infoend({ navigation }) {
       />
 
       <Text style={styles.label}>Logradouro</Text>
-      <TextInput style={styles.input} placeholder="Rua, Avenida, etc." />
+      <TextInput
+      style={styles.input}
+      placeholder="Rua, Avenida, etc."
+      onChangeText={setLogradouro}
+      />
 
       <Text style={styles.label}>Número</Text>
       <TextInput
         style={styles.input}
         placeholder="123"
         keyboardType="numeric"
+        onChangeText={setNumero}
       />
 
       <Text style={styles.label}>Complemento</Text>
-      <TextInput style={styles.input} placeholder="Apto, Bloco, etc." />
+      <TextInput
+      style={styles.input}
+      placeholder="Apto, Bloco, etc."
+      onChangeText={setComplemento}
+      />
 
       <Text style={styles.label}>Bairro</Text>
-      <TextInput style={styles.input} placeholder="Seu bairro" />
+      <TextInput style={styles.input}
+      placeholder="Seu bairro"
+      onChangeText={setBairro}
+      />
 
       <View style={{ flexDirection: 'row', gap: 8 }}>
         <View style={{ flex: 3 }}>
           <Text style={styles.label}>Cidade</Text>
-          <TextInput style={styles.input} placeholder="Sua cidade" />
+          <TextInput
+          style={styles.input}
+          placeholder="Sua cidade"
+          onChangeText={setCidade}
+          />
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.label}>UF</Text>
-          <TextInput style={styles.input} placeholder="SP" maxLength={2} />
+          <TextInput
+          style={styles.input}
+          onChangeText={setUf}
+          placeholder="SP"
+          maxLength={2}
+          />
         </View>
       </View>
 
@@ -81,17 +146,19 @@ export default function Infoend({ navigation }) {
         style={styles.input}
         placeholder="seu@email.com"
         keyboardType="email-address"
+        onChangeText={setEmailPessoal}
       />
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => navigation.navigate('Infoperson')}
+          onPress={handleCancel}
         >
           <Text style={styles.cancelButtonText}>Voltar</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.nextButton} onPress={() => navigation.navigate('Infoprof')}>
+          style={styles.nextButton}
+          onPress={handleNext}>
           <Text style={styles.nextButtonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
