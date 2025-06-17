@@ -62,7 +62,7 @@ export default function ConsultarCredencial({ navigation }) {
     const dataLimpa = dataNascimento.replace(/\D/g, '');
 
     // Validação específica
-    if (cpfLimpo !== '00790651731') {
+    if (cpfLimpo !== '00700404350') {
       setErro('CPF não cadastrado');
       return;
     }
