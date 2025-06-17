@@ -53,7 +53,7 @@ export async function postInfoPessoais(objPessoaFisica, objPessoaJuridica, cargo
 
     alert('Sucesso! Agora envie seus documentos.');
     
-    
+    navigation.navigate('Rg', { pedidoCredencialId: pedidoId });
   } catch (error) {
     console.error('Erro ao enviar dados:', error?.response || error);
     alert('Erro ao cadastrar as informações. Verifique os dados e tente novamente.');
